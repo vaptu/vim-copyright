@@ -46,7 +46,7 @@ function! PrintPhpCopyright()
 endfunction
 
 "Add PHP Author Or Update Infomation
-function AddPhpAuthor()
+function! AddPhpAuthor()
         let n=1
         while n < 10
                 let line = getline(n)
@@ -61,7 +61,7 @@ endfunction
 
 
 "Update Title 
-function UpdateTitle()
+function! UpdateTitle()
         normal m'
         execute '/\s\*\sLast modified\s*:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M")@'
         normal ''
