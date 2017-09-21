@@ -1,2 +1,18 @@
 # vim-copyright
-Vim plugin to generate copyright notice.
+使用vim打开代码文件时，自动添加版权信息
+再保存现有文件时，自动更新文件名称与上次修改时间
+
+##示例
+'''php
+1 <?php
+  2 
+  3 // ----------------------------------------
+  4 // * Author        : xxx Inc 
+  5 // * Date          : 2017-09-21 10:51
+  6 // * Last modified : 2017-09-21 10:51
+  7 // * Filename      : main.php
+  8 // * Description   : 
+  9 // *  
+ 10 // ----------------------------------------
+
+'''
