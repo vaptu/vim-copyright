@@ -1,45 +1,79 @@
 function! PrintCStyleCopyright()
   let year = system('date +"%Y"')[0:3]
-  call setline(1, '// Copyright: xxx Inc ' . year)
-  call setline(2, '// Author: Naresh Kumar (naresh.kumar@thoughtspot.com)')
+  call append(1, '// Copyright: xxx Inc ' . year)
+  call append(2, '// Author: Naresh Kumar (naresh.kumar@thoughtspot.com)')
 endfunction
 
 function! PrintPythonCopyright()
-  let year = system('date +"%Y"')[0:3]
-  call setline(1, '#!/usr/bin/env python')
-  call setline(3, '// ----------------------------------------')
-  call setline(4, '// * Author: xxx Inc ')
-  call setline(5, '// * Date: ' . year)
-  call setline(6, '// * Description: ')
-  call setline(7, '// *  ')
-  call setline(8, '// ----------------------------------------')
+  let year = strftime("%Y-%m-%d %H:%M")
+  call append(1, '#!/usr/bin/env python')
+  call append(3, '// ----------------------------------------')
+  call append(4, '// * Author: xxx Inc ')
+  call append(5, '// * Date: ' . year)
+  call append(6, '// * Description: ')
+  call append(7, '// *  ')
+  call append(8, '// ----------------------------------------')
 endfunction
 
 function! PrintBashCopyright()
-  let year = system('date +"%Y"')[0:3]
-  call setline(1, '#!/bin/bash')
-  call setline(3, '// ----------------------------------------')
-  call setline(4, '// * Author: xxx Inc ')
-  call setline(5, '// * Date: ' . year)
-  call setline(6, '// * Description: ')
-  call setline(7, '// *  ')
-  call setline(8, '// ----------------------------------------')
+  let year = strftime("%Y-%m-%d %H:%M")
+  call append(1, '#!/bin/bash')
+  call append(3, '// ----------------------------------------')
+  call append(4, '// * Author: xxx Inc ')
+  call append(5, '// * Date: ' . year)
+  call append(6, '// * Description: ')
+  call append(7, '// *  ')
+  call append(8, '// ----------------------------------------')
 endfunction
 
+
+" Add PHP Author
 function! PrintPhpCopyright()
-  let year = system('date +"%Y"')[0:3]
-  call setline(1, '#!/usr/bin/env php')
-  call setline(2, '<?php')
-  call setline(3, '// ----------------------------------------')
-  call setline(4, '// * Author: xxx Inc ')
-  call setline(5, '// * Date: ' . year)
-  call setline(6, '// * Description: ')
-  call setline(7, '// *  ')
-  call setline(8, '// ----------------------------------------')
+  let year = strftime("%Y-%m-%d %H:%M")
+  "call append(1, '#!/usr/bin/env php')
+  call append(0, '<?php')
+  call append(1, '')
+  call append(2, '// ----------------------------------------')
+  call append(3, '// * Author        : xxx Inc ')
+  call append(4, '// * Date          : ' . year)
+  call append(5, '// * Last modified : ' . year)
+  call append(6, '// * Filename      : ' .expand("%:t"))
+  call append(7, '// * Description   : ')
+  call append(8, '// *  ')
+  call append(9, '// ----------------------------------------')
 endfunction
 
+"Add PHP Author Or Update Infomation
+function AddPhpAuthor()
+        let n=1
+        while n < 10
+                let line = getline(n)
+                if line =~'^\/\/\s\*\sLast\s*modified\s:\s.*$'
+                        call UpdateTitle()
+                        return
+                endif
+                let n = n + 1
+        endwhile
+        call PrintPhpCopyright()
+endfunction
+
+
+"Update Title 
+function UpdateTitle()
+        normal m'
+        execute '/\s\*\sLast modified\s*:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M")@'
+        normal ''
+        normal mk
+        execute '/\s\*\sFilename\s*:/s@:.*$@\=": ".expand("%:t")@'
+        execute "noh"
+        normal ''
+        normal 'k
+endfunction
 
 au BufNewFile *.{cpp,h,hpp,go} :call PrintCStyleCopyright()
 au BufNewFile *.py :call PrintPythonCopyright()
 au BufNewFile *.sh :call PrintBashCopyright()
-au BufNewFile *.php :call PrintPhpCopyright()
+
+"php file type
+au BufNewFile *.php :call AddPhpAuthor()
+au BufWrite *.php :call AddPhpAuthor()
