@@ -1,29 +1,31 @@
 function! PrintCStyleCopyright()
   let year = system('date +"%Y"')[0:3]
-  call append(1, '// Copyright: xxx Inc ' . year)
-  call append(2, '// Author: Naresh Kumar (naresh.kumar@thoughtspot.com)')
+  call append(0, '// Copyright: xxx Inc ' . year)
+  call append(1, '// Author: Naresh Kumar (naresh.kumar@thoughtspot.com)')
 endfunction
 
 function! PrintPythonCopyright()
   let year = strftime("%Y-%m-%d %H:%M")
-  call append(1, '#!/usr/bin/env python')
-  call append(3, '// ----------------------------------------')
-  call append(4, '// * Author: xxx Inc ')
-  call append(5, '// * Date: ' . year)
-  call append(6, '// * Description: ')
-  call append(7, '// *  ')
-  call append(8, '// ----------------------------------------')
+  call append(0, '#!/usr/bin/env python')
+  call append(1, '')
+  call append(2, '// ----------------------------------------')
+  call append(3, '// * Author: xxx Inc ')
+  call append(4, '// * Date: ' . year)
+  call append(5, '// * Description: ')
+  call append(6, '// *  ')
+  call append(7, '// ----------------------------------------')
 endfunction
 
 function! PrintBashCopyright()
   let year = strftime("%Y-%m-%d %H:%M")
-  call append(1, '#!/bin/bash')
-  call append(3, '// ----------------------------------------')
-  call append(4, '// * Author: xxx Inc ')
-  call append(5, '// * Date: ' . year)
-  call append(6, '// * Description: ')
-  call append(7, '// *  ')
-  call append(8, '// ----------------------------------------')
+  call append(0, '#!/bin/bash')
+  call append(1, '')
+  call append(2, '// ----------------------------------------')
+  call append(3, '// * Author: xxx Inc ')
+  call append(4, '// * Date: ' . year)
+  call append(5, '// * Description: ')
+  call append(6, '// *  ')
+  call append(7, '// ----------------------------------------')
 endfunction
 
 
